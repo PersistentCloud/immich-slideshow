@@ -57,7 +57,7 @@ class ImmichService {
         headers: this.getHeaders(),
         responseType: 'blob',
       });
-      
+
       const reader = new FileReader();
       return new Promise((resolve, reject) => {
         reader.onloadend = () => resolve(reader.result as string);
