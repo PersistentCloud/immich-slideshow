@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  immich-slideshow:
+    container_name: immich_slideshow
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - IMMICH_API_BASE_URL=${REACT_APP_IMMICH_API_BASE_URL}
+        - OPENWEATHERMAP_API_KEY=${REACT_APP_OPENWEATHERMAP_API_KEY}
+        - IMMICH_API_KEY=${REACT_APP_IMMICH_API_KEY}
+        - IMMICH_ALBUM_IDS=${REACT_APP_IMMICH_ALBUM_IDS}
+        - SLIDESHOW_INTERVAL_SECONDS=${REACT_APP_SLIDESHOW_INTERVAL_SECONDS}
+        - ALBUM_UPDATE_INTERVAL_MINUTES=6${REACT_APP_ALBUM_UPDATE_INTERVAL_MINUTES}
+        - EXCLUDED_FILE_TYPES=${REACT_APP_EXCLUDED_FILE_TYPES}
+    ports:
+      - "8780:80"

@@ -1,0 +1,175 @@
+/* src/App.css */
+
+/* Globale Stile für den Body und das HTML-Dokument */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Verhindert Scrollbars */
+}
+
+/* Stile für die Haupt-App-Komponente */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  /* Verhindert Scrollbars */
+}
+
+/* Stile für die Slideshow-Komponente */
+.slideshow {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* Verhindert Scrollbars */
+}
+
+.slideshow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Zentriert das Bild */
+}
+
+/* Stile für das Overlay */
+.overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  z-index: 1;
+  /* Vordergrundebene über der Slideshow */
+  border-radius: 10px;
+}
+
+/* Stile für die Datum- und Uhrzeitanzeige */
+.datetime-container {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  z-index: 1;
+  /* Vordergrundebene über der Slideshow */
+  border-radius: 10px;
+}
+
+.datetime {
+  font-size: 2em;
+  /* Größere Schriftgröße */
+  margin-bottom: 5px;
+  /* Abstand unterhalb der Uhrzeit */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Textschatten für bessere Lesbarkeit */
+  color: #fff;
+  /* Weiße Schriftfarbe */
+}
+
+.datetime .date {
+  font-size: 1.5em;
+  /* Größe für das Datum */
+}
+
+.datetime .time {
+  font-size: 2.5em;
+  /* Größe für die Uhrzeit */
+  font-weight: bold;
+  /* Fettgedruckte Uhrzeit */
+}
+
+/* Stile für die Wetterdaten */
+.weather-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  z-index: 1;
+  /* Vordergrundebene über der Slideshow */
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  /* Horizontale Ausrichtung */
+  align-items: center;
+  /* Vertikale Zentrierung */
+}
+
+.weather {
+  font-size: 1.2em;
+  /* Größere Schriftgröße für den gesamten Wetterblock */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.location {
+  font-size: 1.5em;
+  /* Größere Schriftgröße für den Ortsnamen */
+  margin-bottom: 5px;
+  /* Abstand unterhalb des Ortsnamens */
+  color: #fff;
+  /* Schriftfarbe für den Ortsnamen */
+}
+
+.weather .weather-info {
+  display: flex;
+  align-items: center;
+}
+
+.weather .weather-info .weather-icon {
+  width: 50px;
+  /* Größe des Wettericons */
+  height: 50px;
+  margin-right: 10px;
+}
+
+.weather .weather-info .temperature {
+  font-size: 1.5em;
+  /* Größere Schriftgröße für die Temperatur */
+}
+
+.sun-times {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.sun-times .sunrise,
+.sun-times .sunset {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  margin-right: 10px;
+}
+
+.sun-times .sunrise img,
+.sun-times .sunset img {
+  width: 30px;
+  height: 24px;
+  margin-right: 5px;
+}
