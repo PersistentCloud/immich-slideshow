@@ -2,9 +2,12 @@ version: '3.8'
 services:
   immich-slideshow:
     container_name: immich_slideshow
+    image: persistentcloud/immich-slideshow
+    platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
+      # no_cache: true
       args:
         - IMMICH_API_BASE_URL=${REACT_APP_IMMICH_API_BASE_URL}
         - OPENWEATHERMAP_API_KEY=${REACT_APP_OPENWEATHERMAP_API_KEY}
@@ -15,3 +18,4 @@ services:
         - EXCLUDED_FILE_TYPES=${REACT_APP_EXCLUDED_FILE_TYPES}
     ports:
       - "8780:80"
+    

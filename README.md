@@ -15,6 +15,7 @@ The **Weather Slideshow App** is an React application that displays a slideshow 
 - Display of current temperature and weather conditions
 - Display of sunrise and sunset times
 - Automatic updates based on user location
+- Nginx preconfigured to be ready when deployed in Docker
 
 ## Installation
 
@@ -57,66 +58,21 @@ The **Weather Slideshow App** is an React application that displays a slideshow 
 
 2. Open your web browser and navigate to <http://localhost:3000> (or the specified URL).
 
+## Docker
+
+Run the following command:
+
+```bash
+build.sh <repository_url>
+```
+
+Keep in mind, that you should only use this with a private repository. All variables are hardcoded during build. Unfortunately there is no other way. Therefore I hosted a repository for myself.
+
 ## Immich Reverse Proxy Configuration
 
-Nginx configuration for the immich server which can be found in the official documentation at <https://immich.app/docs/administration/reverse-proxy/>. Please note that the port is not correct and has been corrected in the following example. Corresponding CORS headers have also been added. These should be adjusted if necessary. In my case, the nginx server is not accessible from the internet, so I did not worry about this.
+The Nginx configuration for the immich server can be found in the official documentation at <https://immich.app/docs/administration/reverse-proxy/>. Please note that the port is not correct and has been corrected in the [default.conf](nginx/default.conf). Corresponding CORS headers have also been added. These should be adjusted if necessary.
 
-```text
-server {
-    # server_name <public_url>;
-
-    # allow large file uploads
-    client_max_body_size 50000M;
-
-    # Set headers
-    proxy_set_header Host              $http_host;
-    proxy_set_header X-Real-IP         $remote_addr;
-    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-
-    # enable websockets: http://nginx.org/en/docs/http/websocket.html
-    proxy_http_version 1.1;
-    proxy_set_header   Upgrade    $http_upgrade;
-    proxy_set_header   Connection "upgrade";
-    proxy_redirect     off;
-
-    # set timeout
-    proxy_read_timeout 600s;
-    proxy_send_timeout 600s;
-        send_timeout       600s;
-
-    location / {
-        proxy_pass http://immich_server:3001;
-        if ($request_method = 'OPTIONS') {
-           add_header 'Access-Control-Allow-Origin' '*';
-           add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-           #
-           # Custom headers and headers various browsers *should* be OK with but aren't
-           #
-           add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,x-api-key';
-           #
-           # Tell client that this pre-flight info is valid for 20 days
-           #
-           add_header 'Access-Control-Max-Age' 1728000;
-           add_header 'Content-Type' 'text/plain; charset=utf-8';
-           add_header 'Content-Length' 0;
-           return 204;
-        }
-        if ($request_method = 'POST') {
-           add_header 'Access-Control-Allow-Origin' '*' always;
-           add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
-           add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,x-api-key' always;
-           add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
-        }
-        if ($request_method = 'GET') {
-           add_header 'Access-Control-Allow-Origin' '*' always;
-           add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
-           add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,x-api-key' always;
-           add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
-        }
-    }
-}
-```
+**_NOTE:_** When you build this and you want to create a docker image, ffs leave the REACT_APP_IMMICH_API_BASE_URL environment variable empty. I don't know why, it seems like magic, but I lost a day to figure this out. For more informations you can visit <https://github.com/dmaze/docker-frontend-hostnames>.
 
 ## API Keys
 
