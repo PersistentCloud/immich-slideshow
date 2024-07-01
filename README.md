@@ -1,10 +1,10 @@
-# Weather Slideshow App
+# Immich Slideshow App
 
 The **Weather Slideshow App** is an React application that displays a slideshow of weather images based on the user's current location. The app utilizes the OpenWeatherMap API to fetch current weather data and displays it along with sunrise and sunset times.
 
 ## Table of Contents
 
-- [Weather Slideshow App](#weather-slideshow-app)
+- [Immich Slideshow App](#immich-slideshow-app)
   - [Table of Contents](#table-of-contents)
   - [Disclaimer](#disclaimer)
   - [Features](#features)
