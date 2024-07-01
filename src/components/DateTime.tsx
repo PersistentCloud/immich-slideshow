@@ -14,7 +14,11 @@ const DateTime: React.FC = () => {
 
   return (
     <div className="datetime">
-      <div className="date">{dateTime.toLocaleDateString()}</div>
+      <div className="date">{dateTime.toLocaleDateString("de-DE", { // you can use undefined as first argument
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })}</div>
       <div className="time">{dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
     </div>
   );
