@@ -2,6 +2,22 @@
 
 The **Weather Slideshow App** is an React application that displays a slideshow of weather images based on the user's current location. The app utilizes the OpenWeatherMap API to fetch current weather data and displays it along with sunrise and sunset times.
 
+## Table of Contents
+
+- [Weather Slideshow App](#weather-slideshow-app)
+  - [Table of Contents](#table-of-contents)
+  - [Disclaimer](#disclaimer)
+  - [Features](#features)
+  - [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+    - [Installation Steps](#installation-steps)
+  - [Usage](#usage)
+  - [Docker](#docker)
+  - [Immich Reverse Proxy Configuration](#immich-reverse-proxy-configuration)
+  - [API Keys](#api-keys)
+  - [Contributing](#contributing)
+  - [License](#license)
+
 ## Disclaimer
 
 - Immich is under **very active** development. Breaking changes can always happen.
@@ -81,6 +97,10 @@ This app uses various APIs, including:
 - [OpenWeatherMap](https://openweathermap.org/): for weather data and forecasts. An API key is required and should be configured in the .env file.
 - [Immich](https://immich.app/): for the Pictures which are used for the Slideshow.
 
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
 ## License
 
-This project is licensed under the GNU General Public License v3.0.
+This project is licensed under the GNU General Public License v3.0. See the LICENSE.md file for details.
