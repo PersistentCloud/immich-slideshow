@@ -1,10 +1,6 @@
 // src/services/immichService.ts
 import axios from 'axios';
-
-interface Asset {
-  id: string;
-  originalFileName: string;
-}
+import { Asset } from '../global/interfaces';
 
 class ImmichService {
   private baseUrl: string;
@@ -44,6 +40,8 @@ class ImmichService {
       return filteredAssets.map((asset: any) => ({
         id: asset.id,
         originalFileName: asset.originalFileName,
+        city: asset.exifInfo.city,
+        dateTimeOriginal: asset.exifInfo.dateTimeOriginal
       }));
     } catch (error) {
       console.error(`Error fetching assets for album ${albumId}`, error);

@@ -1,7 +1,8 @@
 // src/components/Slideshow.tsx
 import React, { useEffect, useState } from 'react';
 import ImmichService from '../services/immichService';
-import { combineArrays, shuffleArray } from '../helper/helper';
+import { combineArrays, shuffleArray } from '../global/helper';
+import { Asset } from '../global/interfaces';
 
 interface SlideshowProps {
     albumIds: string[];
@@ -10,10 +11,6 @@ interface SlideshowProps {
     slideshowInterval: number;
     albumUpdateInterval: number;
     excludedFileTypes: string[];
-}
-
-interface Asset {
-    id: string;
 }
 
 const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slideshowInterval, albumUpdateInterval, excludedFileTypes }) => {
@@ -61,8 +58,10 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
     if (assets.length === 0) return <div>Loading slideshow...</div>;
 
     return (
-        <div className="slideshow">
-            {currentBase64 && <img src={currentBase64} alt="Slideshow" />}
+        <div className="fade-in" key={currentBase64}>
+            <div className="slideshow">
+                {currentBase64 && <img src={currentBase64} alt="Slideshow" />}
+            </div>
         </div>
     );
 };
