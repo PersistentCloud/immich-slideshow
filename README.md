@@ -20,6 +20,7 @@ The **Weather Slideshow App** is an React application that displays a slideshow 
 
 ## Disclaimer
 
+- This project is not affiliated with immich!
 - Immich is under **very active** development. Breaking changes can always happen.
 - I'm not a professional developer. Code Gore and the ignoring of best practices cannot be ruled out.
 
