@@ -90,6 +90,8 @@ The Nginx configuration for the immich server can be found in the official docum
 
 **_NOTE:_** When you build this and you want to create a docker image, ffs leave the REACT_APP_IMMICH_API_BASE_URL environment variable empty. I don't know why, it seems like magic, but I lost a day to figure this out. For more informations you can visit <https://github.com/dmaze/docker-frontend-hostnames>.
 
+**_NOTE 2:_** Please bear in mind that you need a reverse proxy to access the Immich API via the React app. In my case, I use the already started container as such. If you don't have the app running in your docker setup before you try to program something locally, no images will be displayed.
+
 ## API Keys
 
 This app uses various APIs, including:
