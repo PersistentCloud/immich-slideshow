@@ -16,6 +16,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
     const [assets, setAssets] = useState<Asset[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentBase64, setCurrentBase64] = useState<string | null>(null);
+    const [isPortrait, setIsPortrait] = useState(false);
 
     const immichService = new ImmichService(baseUrl, apiKey, excludedFileTypes);
 
@@ -54,10 +55,17 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
         }
     }, [assets, slideshowInterval]);
 
+    useEffect(() => {
+        if (assets.length > 0) {
+        console.log('CurrentIndex: ', currentIndex);
+        setIsPortrait(assets[currentIndex].exifImageHeight > assets[currentIndex].exifImageWidth);
+        }
+    }, [assets, currentIndex])
+
     if (assets.length === 0) return <div>Loading slideshow...</div>;
 
     const currentAsset = assets[currentIndex];
-    const formattedDate = currentAsset.dateTimeOriginal.toLocaleDateString("de-DE", { // you can use undefined as first argument
+    const formattedDate = currentAsset.dateTimeOriginal.toLocaleDateString("de-DE", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
@@ -65,7 +73,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
 
     return (
         <div className="fade-in" key={currentBase64}>
-            <div className="slideshow">
+            <div className={`slideshow${isPortrait ? ' portrait' : ''}`}>
                 {currentBase64 && <img src={currentBase64} alt="Slideshow" />}
                 <div className="overlay">
                     <div>{currentAsset.city}</div>

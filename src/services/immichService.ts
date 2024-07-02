@@ -41,7 +41,9 @@ class ImmichService {
         id: asset.id,
         originalFileName: asset.originalFileName,
         city: asset.exifInfo.city,
-        dateTimeOriginal: new Date(asset.exifInfo.dateTimeOriginal)
+        dateTimeOriginal: new Date(asset.exifInfo.dateTimeOriginal),
+        exifImageWidth: asset.exifInfo.exifImageWidth,
+        exifImageHeight: asset.exifInfo.exifImageHeight
       }));
     } catch (error) {
       console.error(`Error fetching assets for album ${albumId}`, error);

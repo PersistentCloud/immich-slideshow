@@ -11,6 +11,7 @@ html {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: black;
   /* Prevents Scrollbars */
 }
 
@@ -45,8 +46,20 @@ html {
   /* Centers the image */
 }
 
+.slideshow.portrait img {
+  width: auto;
+  height: calc(100% + 60px);
+  /* Increase height by 40px to crop top and bottom */
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.1);
+  /* Zoom effect */
+}
+
 /* Styles for the Overlay */
-.overlay {
+.slideshow .overlay {
   position: absolute;
   bottom: 20px;
   right: 20px;
@@ -238,6 +251,10 @@ html {
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
+  .slideshow .overlay {
+    font-size: 0.5em
+  }
+
   .datetime {
     font-size: 1.5em;
   }
@@ -280,6 +297,10 @@ html {
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
+  .slideshow .overlay {
+      font-size: 0.7em
+    }
+
   .datetime {
     font-size: 1.8em;
   }

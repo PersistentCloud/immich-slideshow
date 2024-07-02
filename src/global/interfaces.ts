@@ -3,4 +3,6 @@ export interface Asset {
   originalFileName: string;
   city: string;
   dateTimeOriginal: Date;
+  exifImageWidth: number;
+  exifImageHeight: number;
 }
