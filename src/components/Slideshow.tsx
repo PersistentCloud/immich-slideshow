@@ -1,4 +1,3 @@
-// src/components/Slideshow.tsx
 import React, { useEffect, useState } from 'react';
 import ImmichService from '../services/immichService';
 import { combineArrays, shuffleArray } from '../global/helper';
@@ -57,10 +56,19 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
 
     if (assets.length === 0) return <div>Loading slideshow...</div>;
 
+    const currentAsset = assets[currentIndex];
+    const formattedDate = currentAsset.dateTimeOriginal.toLocaleDateString("de-DE", { // you can use undefined as first argument
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+    });
+
     return (
-        <div className="fade-in" key={currentBase64}>
-            <div className="slideshow">
-                {currentBase64 && <img src={currentBase64} alt="Slideshow" />}
+        <div className="slideshow">
+            {currentBase64 && <img src={currentBase64} alt="Slideshow" />}
+            <div className="overlay">
+                <div>{currentAsset.city}</div>
+                <div>{formattedDate}</div>
             </div>
         </div>
     );
