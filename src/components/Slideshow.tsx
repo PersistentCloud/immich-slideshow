@@ -64,11 +64,13 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
     });
 
     return (
-        <div className="slideshow">
-            {currentBase64 && <img src={currentBase64} alt="Slideshow" />}
-            <div className="overlay">
-                <div>{currentAsset.city}</div>
-                <div>{formattedDate}</div>
+        <div className="fade-in" key={currentBase64}>
+            <div className="slideshow">
+                {currentBase64 && <img src={currentBase64} alt="Slideshow" />}
+                <div className="overlay">
+                    <div>{currentAsset.city}</div>
+                    <div>{formattedDate}</div>
+                </div>
             </div>
         </div>
     );
