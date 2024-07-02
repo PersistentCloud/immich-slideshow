@@ -17,7 +17,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentBase64, setCurrentBase64] = useState<string | null>(null);
     const [isPortrait, setIsPortrait] = useState(false);
-    const [currentAssetCreationDate, setCurrentAssetCretionDate] = useState<string | null>(null);
+    const [currentAssetCreationDate, setCurrentAssetCreationDate] = useState<string | null>(null);
     const [currentAssetLocation, setCurrentAssetLocation] = useState<string | null>(null);
 
     const immichService = new ImmichService(baseUrl, apiKey, excludedFileTypes);
@@ -36,7 +36,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
         setCurrentBase64(base64);
         setIsPortrait(asset.exifImageHeight > asset.exifImageWidth);
         setCurrentAssetLocation(asset.city);
-        setCurrentAssetCretionDate(asset.dateTimeOriginal.toLocaleDateString("de-DE", {
+        setCurrentAssetCreationDate(asset.dateTimeOriginal.toLocaleDateString("de-DE", {
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
