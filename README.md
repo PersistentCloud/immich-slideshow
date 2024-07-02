@@ -15,6 +15,7 @@ The **Weather Slideshow App** is an React application that displays a slideshow 
   - [Docker](#docker)
   - [Immich Reverse Proxy Configuration](#immich-reverse-proxy-configuration)
   - [API Keys](#api-keys)
+  - [Example Screens](#example-screens)
   - [Contributing](#contributing)
   - [License](#license)
 
@@ -99,6 +100,11 @@ This app uses various APIs, including:
 
 - [OpenWeatherMap](https://openweathermap.org/): for weather data and forecasts. An API key is required and should be configured in the .env file.
 - [Immich](https://immich.app/): for the Pictures which are used for the Slideshow.
+
+## Example Screens
+
+![Landscape Mode Picture](./example_screenshots/example_1.png)
+![Portrait Mode Picture](./example_screenshots/example_2.png)
 
 ## Contributing
 
