@@ -16,7 +16,6 @@ interface WeatherData {
 
 const Weather: React.FC<WeatherProps> = ({ apiKey }) => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [locationError, setLocationError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchWeather = async (latitude: number, longitude: number) => {
@@ -34,7 +33,6 @@ const Weather: React.FC<WeatherProps> = ({ apiKey }) => {
         setWeather({ city, temp, icon, sunrise, sunset });
       } catch (error) {
         console.error('Error fetching weather data', error);
-        setLocationError('Failed to fetch weather data');
       }
     };
 
@@ -46,26 +44,23 @@ const Weather: React.FC<WeatherProps> = ({ apiKey }) => {
             fetchWeather(latitude, longitude);
           },
           (error) => {
-            setLocationError('Unable to retrieve your location');
-            console.error('Error getting location', error);
+            console.error('Unable to retrieve your location', error);
             // Fallback to Stuttgart coordinates
             fetchWeather(48.7758, 9.1829); // Stuttgart coordinates
           }
         );
       } else {
-        setLocationError('Geolocation is not supported by this browser');
+        console.error('Geolocation is not supported by this browser');
         // Fallback to Stuttgart coordinates
         fetchWeather(48.7758, 9.1829); // Stuttgart coordinates
       }
     };
-
     getLocation();
     const interval = setInterval(getLocation, 1800000); // 30 Minuten
     return () => clearInterval(interval); // Clear interval on component unmount
   }, [apiKey]);
 
-  if (locationError) return <div>{locationError}</div>;
-  if (!weather) return <div>Loading weather...</div>;
+  if (!weather) return <div className='weather'>Loading weather...</div>;
 
   return (
     <div className="weather">
@@ -75,7 +70,7 @@ const Weather: React.FC<WeatherProps> = ({ apiKey }) => {
         src={`http://openweathermap.org/img/wn/${weather.icon}.png`}
         alt="Weather Icon"
       />
-      <span>{weather.temp}°C</span>
+      <span className="temperature">{weather.temp}°C</span>
       <div className="sun-times">
         <div className="sunrise">
           <img src="/icons/sunrise.png" alt="Sunrise Icon" />
