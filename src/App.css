@@ -7,7 +7,7 @@ html {
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: 'Monaco', sans-serif;
+  font-family: Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -103,85 +103,61 @@ html {
 .fade-in .slideshow .overlay {
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   z-index: 1;
   /* Foreground layer above the Slideshow */
   border-radius: 10px;
-  text-align: right;
+  text-align: center;
+  margin-bottom: 5px; /* Space below the time */
   font-size: 0.9em;
 }
 
 /* Styles for the DateTime display */
 .datetime-container {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  text-align: center;
-  z-index: 1;
-  /* Foreground layer above the Slideshow */
-  border-radius: 10px;
+  color: #fff; /* White text color */
+  z-index: 1; /* Foreground layer above the Slideshow */
 }
 
 .datetime {
-  font-size: 2em;
-  /* Larger font size */
-  margin-bottom: 5px;
-  /* Space below the time */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  /* Text shadow for better readability */
-  color: #fff;
-  /* White text color */
+  position: fixed; /* Use fixed positioning to fix it to the viewport */
+  bottom: 20px; /* Adjust bottom spacing as needed */
+  left: 20px; /* Adjust left spacing as needed */
+  font-size: 2em; /* Larger font size */
+  margin-bottom: 5px; /* Space below the time */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
 }
 
 .datetime .date {
-  font-size: 1.5em;
-  /* Size for the date */
+  font-size: 1.2em; /* Size for the date */
 }
 
 .datetime .time {
-  font-size: 2.5em;
-  /* Size for the time */
-  font-weight: bold;
-  /* Bold time */
+  font-size: 2.2em; /* Size for the time */
+  font-weight: bold; /* Bold time */
 }
 
 /* Styles for the Weather data */
 .weather-container {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  text-align: center;
-  z-index: 1;
-  /* Foreground layer above the Slideshow */
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-around;
-  /* Horizontal alignment */
-  align-items: center;
-  /* Vertical centering */
+  color: white; /* White text color */
+  text-align: right;
+  z-index: 1; /* Foreground layer above the Slideshow */
 }
 
 .weather {
-  font-size: 1.2em;
-  /* Larger font size for the entire weather block */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: fixed; /* Use fixed positioning to fix it to the viewport */
+  bottom: 20px; /* Adjust bottom spacing as needed */
+  right: 20px; /* Adjust left spacing as needed */
+  font-size: 2em; /* Larger font size */
+  margin-bottom: 5px; /* Space below the time */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
 }
 
-.location {
-  font-size: 1.5em;
+.weather .location {
+  font-size: 1.2em;
   /* Larger font size for the location name */
   margin-bottom: 5px;
   /* Space below the location name */
@@ -189,40 +165,35 @@ html {
   /* Text color for the location name */
 }
 
-.weather .weather-info {
-  display: flex;
-  align-items: center;
-}
-
-.weather .weather-info .weather-icon {
+.weather .weather-icon {
   width: 50px;
   /* Size of the weather icon */
   height: 50px;
   margin-right: 10px;
+  vertical-align: middle;
 }
 
-.weather .weather-info .temperature {
-  font-size: 1.5em;
-  /* Larger font size for the temperature */
+.weather .temperature {
+  font-size: 1em; /* Larger font size for the temperature */
 }
 
-.sun-times {
+.weather .sun-times {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 10px;
 }
 
-.sun-times .sunrise,
-.sun-times .sunset {
+.weather .sun-times .sunrise,
+.weather .sun-times .sunset {
   display: flex;
   align-items: center;
   margin: 5px 0;
   margin-right: 10px;
+  font-size: 0.8em
 }
 
-.sun-times .sunrise img,
-.sun-times .sunset img {
+.weather .sun-times .sunrise img,
+.weather .sun-times .sunset img {
   width: 30px;
   height: 24px;
   margin-right: 5px;
@@ -284,93 +255,67 @@ html {
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
-  .slideshow .overlay {
-    font-size: 0.5em
+  .fade-in .slideshow .overlay {
+    font-size: 0.6em
   }
 
   .datetime {
-    font-size: 1.5em;
-  }
-
-  .datetime .date {
-    font-size: 1em;
-  }
-
-  .datetime .time {
-    font-size: 2em;
+    font-size: 1.3em;
   }
 
   .weather-container {
     flex-direction: column;
-    padding: 5px;
   }
 
   .weather {
-    font-size: 1em;
+    font-size: 1.3em;
   }
 
-  .weather .weather-info .weather-icon {
+  .weather .weather-icon {
     width: 40px;
     height: 40px;
   }
 
-  .weather .weather-info .temperature {
-    font-size: 1.2em;
+  .weather .sun-times {
+    flex-direction: row;
+    align-items: end;
   }
 
-  .sun-times {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .sun-times .sunrise,
-  .sun-times .sunset {
-    margin-right: 0;
+  .weather .sun-times .sunrise,
+  .weather .sun-times .sunset {
+    margin-right: 5px;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .slideshow .overlay {
-      font-size: 0.7em
-    }
+  .fade-in .slideshow .overlay {
+    font-size: 0.8em
+  }
 
   .datetime {
-    font-size: 1.8em;
-  }
-
-  .datetime .date {
-    font-size: 1.2em;
-  }
-
-  .datetime .time {
-    font-size: 2.2em;
+    font-size: 1.7em;
   }
 
   .weather-container {
     flex-direction: column;
-    padding: 8px;
   }
 
   .weather {
-    font-size: 1.1em;
+    font-size: 1.7em;
   }
 
-  .weather .weather-info .weather-icon {
+  .weather .weather-icon {
     width: 45px;
     height: 45px;
   }
 
-  .weather .weather-info .temperature {
-    font-size: 1.3em;
-  }
-
-  .sun-times {
+  .weather .sun-times {
     flex-direction: row;
     align-items: center;
   }
 
-  .sun-times .sunrise,
-  .sun-times .sunset {
+  .weather .sun-times .sunrise,
+  .weather .sun-times .sunset {
     margin-right: 5px;
   }
 }
