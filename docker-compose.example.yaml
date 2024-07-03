@@ -65,6 +65,8 @@ services:
     ports:
       - 8780:80
     restart: always
+    volumes:
+      - ./public/config.own.json:/usr/share/nginx/html/config.json:ro
     networks:
       - immich
       - cloudflared

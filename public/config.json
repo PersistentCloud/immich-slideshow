@@ -1,0 +1,17 @@
+{
+    "IMMICH_API_BASE_URL": "",
+    "OPENWEATHERMAP_API_KEY": "",
+    "IMMICH_API_KEY": "",
+    "IMMICH_ALBUM_IDS": [
+        "df46cc24-280a-4330-9910-1187d26a5e69",
+        "0e4e8d67-7616-465d-8e7d-f380a80f7199",
+        "cc0e328c-586d-449c-a9be-64303a73cd22"
+    ],
+    "EXCLUDED_FILE_TYPES": [
+        "ORF",
+        "PDF"
+    ],
+    "SLIDESHOW_INTERVAL_SECONDS": 5,
+    "ALBUM_UPDATE_INTERVAL_MINUTES": 60,
+    "FALLBACK_COORDINATES": {"latitude": 48.7758, "longitude": 9.1829}
+}

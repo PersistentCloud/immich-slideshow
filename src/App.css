@@ -83,7 +83,7 @@ html {
 
 .fade-in .slideshow.portrait::after {
   right: 0;
-  background: linear-gradient(to right, var(--gradient-right));
+  background: linear-gradient(to left, var(--gradient-right));
 }
 
 .fade-in .slideshow.portrait img {

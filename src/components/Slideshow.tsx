@@ -33,17 +33,22 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
     };
 
     const updateCurrentImageData = async (asset: Asset) => {
-        const base64 = await immichService.getImageBase64(asset.id);
-        const gradientColors = await getGradientForBothSides(base64);
-        setCurrentBase64(base64);
-        setIsPortrait(asset.exifImageHeight > asset.exifImageWidth);
-        setCurrentAssetLocation(asset.city);
-        setCurrentAssetCreationDate(asset.dateTimeOriginal.toLocaleDateString("de-DE", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-        }));
-        setGradientColors(gradientColors);
+        try {
+            const base64 = await immichService.getImageBase64(asset.id);
+            const gradientColors = await getGradientForBothSides(base64);
+            setCurrentBase64(base64);
+            setIsPortrait(asset.exifImageHeight > asset.exifImageWidth);
+            setCurrentAssetLocation(asset.city);
+            setCurrentAssetCreationDate(asset.dateTimeOriginal.toLocaleDateString("de-DE", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+            }));
+            setGradientColors(gradientColors);
+        }
+        catch (e) {
+            console.error(e);
+        }
     };
 
     useEffect(() => {

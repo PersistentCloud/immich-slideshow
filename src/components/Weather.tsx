@@ -4,6 +4,7 @@ import axios from 'axios';
 
 interface WeatherProps {
   apiKey: string;
+  fallbackCoordinates: {latitude: number, longitude: number};
 }
 
 interface WeatherData {
@@ -14,7 +15,7 @@ interface WeatherData {
   sunset: string;
 }
 
-const Weather: React.FC<WeatherProps> = ({ apiKey }) => {
+const Weather: React.FC<WeatherProps> = ({ apiKey, fallbackCoordinates }) => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
 
   useEffect(() => {
@@ -45,14 +46,12 @@ const Weather: React.FC<WeatherProps> = ({ apiKey }) => {
           },
           (error) => {
             console.error('Unable to retrieve your location', error);
-            // Fallback to Stuttgart coordinates
-            fetchWeather(48.7758, 9.1829); // Stuttgart coordinates
+            fetchWeather(fallbackCoordinates.latitude, fallbackCoordinates.longitude);
           }
         );
       } else {
         console.error('Geolocation is not supported by this browser');
-        // Fallback to Stuttgart coordinates
-        fetchWeather(48.7758, 9.1829); // Stuttgart coordinates
+        fetchWeather(fallbackCoordinates.latitude, fallbackCoordinates.longitude);
       }
     };
     getLocation();
