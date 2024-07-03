@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ImmichService from '../services/immichService';
-import { combineArrays, shuffleArray } from '../global/helper';
+import { combineArrays, getGradientForBothSides, shuffleArray } from '../global/helper';
 import { Asset } from '../global/interfaces';
 
 interface SlideshowProps {
@@ -19,6 +19,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
     const [isPortrait, setIsPortrait] = useState(false);
     const [currentAssetCreationDate, setCurrentAssetCreationDate] = useState<string | null>(null);
     const [currentAssetLocation, setCurrentAssetLocation] = useState<string | null>(null);
+    const [currentGradientColors, setGradientColors] = useState<{ left: string; right: string; } | null>(null);
 
     const immichService = new ImmichService(baseUrl, apiKey, excludedFileTypes);
 
@@ -33,6 +34,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
 
     const updateCurrentImageData = async (asset: Asset) => {
         const base64 = await immichService.getImageBase64(asset.id);
+        const gradientColors = await getGradientForBothSides(base64);
         setCurrentBase64(base64);
         setIsPortrait(asset.exifImageHeight > asset.exifImageWidth);
         setCurrentAssetLocation(asset.city);
@@ -41,6 +43,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
             month: "2-digit",
             day: "2-digit",
         }));
+        setGradientColors(gradientColors);
     };
 
     useEffect(() => {
@@ -66,9 +69,16 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
 
     if (assets.length === 0) return <div>Loading slideshow...</div>;
 
+    const customStyles: React.CSSProperties = isPortrait && currentGradientColors ? {
+        '--gradient-left': currentGradientColors.left,
+        '--gradient-right': currentGradientColors.right,
+    } as React.CSSProperties : {};
+
     return (
         <div className="fade-in" key={currentBase64}>
-            <div className={`slideshow${isPortrait ? ' portrait' : ''}`}>
+            <div
+                className={`slideshow${isPortrait ? ' portrait' : ''}`}
+                style={customStyles}>
                 {currentBase64 && <img src={currentBase64} alt="Slideshow" />}
                 <div className="overlay">
                     <div>{currentAssetLocation}</div>

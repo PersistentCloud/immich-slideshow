@@ -15,6 +15,11 @@ html {
   /* Prevents Scrollbars */
 }
 
+#root {
+  height: 100%;
+  width: 100%;
+}
+
 /* Styles for the main App component */
 .app {
   display: flex;
@@ -25,8 +30,18 @@ html {
   /* Prevents Scrollbars */
 }
 
+.fade-in {
+  height: 100%;
+  width: 100%;
+  animation: fadeIn 1s ease-in-out;
+  -webkit-animation: fadeIn 1s ease-in-out;
+  -moz-animation: fadeIn 1s ease-in-out;
+  -o-animation: fadeIn 1s ease-in-out;
+  -ms-animation: fadeIn 1s ease-in-out;
+}
+
 /* Styles for the Slideshow component */
-.slideshow {
+.fade-in .slideshow {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -35,7 +50,7 @@ html {
   /* Prevents Scrollbars */
 }
 
-.slideshow img {
+.fade-in .slideshow img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -46,20 +61,46 @@ html {
   /* Centers the image */
 }
 
-.slideshow.portrait img {
+.fade-in .slideshow.portrait {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.fade-in .slideshow.portrait::before,
+.fade-in .slideshow.portrait::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 33%;
+}
+
+.fade-in .slideshow.portrait::before {
+  left: 0;
+  background: linear-gradient(to right, var(--gradient-left));
+}
+
+.fade-in .slideshow.portrait::after {
+  right: 0;
+  background: linear-gradient(to right, var(--gradient-right));
+}
+
+.fade-in .slideshow.portrait img {
   width: auto;
   height: calc(100% + 60px);
-  /* Increase height by 40px to crop top and bottom */
+  /* Increase height by 60px to crop top and bottom */
   object-fit: cover;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(1.1);
   /* Zoom effect */
+  z-index: 1;
 }
 
 /* Styles for the Overlay */
-.slideshow .overlay {
+.fade-in .slideshow .overlay {
   position: absolute;
   bottom: 20px;
   right: 20px;
@@ -185,14 +226,6 @@ html {
   width: 30px;
   height: 24px;
   margin-right: 5px;
-}
-
-.fade-in {
-  animation: fadeIn 1s ease-in-out;
-  -webkit-animation: fadeIn 1s ease-in-out;
-  -moz-animation: fadeIn 1s ease-in-out;
-  -o-animation: fadeIn 1s ease-in-out;
-  -ms-animation: fadeIn 1s ease-in-out;
 }
 
 @keyframes fadeIn {
