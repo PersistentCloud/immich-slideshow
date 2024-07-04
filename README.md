@@ -1,8 +1,19 @@
 # Immich Slideshow App
 
-![Landscape Mode Picture](./example_screenshots/example_1.png) ![Portrait Mode Picture](./example_screenshots/example_2.png)
+<table class="images" width="100%"  style="border:0px solid white; width:100%;">
+    <tr style="border: 0px;">
+        <td width="50%" style="border:0px; width:50%">
+            <img src="/example_screenshots/example_1.png" alt="Landscape Image"/>
+        </td>
+        <td width="50%" style="border:0px; width:50%">
+            <img src="/example_screenshots/example_2.png" alt="Portrait Image" />
+        </td>
+    </tr>
+</table>
 
-The **Immich Slideshow App** is a React application that displays a slideshow of images provided by [immich](https://github.com/immich-app/immich). The app utilises the OpenWeatherMap API to retrieve current weather data and displays it along with sunrise and sunset times.
+The **Immich Slideshow App** is a React application that displays a slideshow of images provided 
+by [immich](https://github.com/immich-app/immich). The app utilises the OpenWeatherMap API to retrieve current weather
+data and displays it along with sunrise and sunset times.
 
 ## Table of Contents
 
@@ -79,7 +90,8 @@ Run the following command:
 build.sh <repository_url>
 ```
 
-Keep in mind, that you will provide the config.json to your build. If there are any credentials during the build process, they will be pushed and published. 
+Keep in mind, that you will provide the config.json to your build. If there are any credentials during the build process,
+they will be pushed and published.
 
 ## Usage
 
@@ -96,28 +108,37 @@ Keep in mind, that you will provide the config.json to your build. If there are 
 ### Docker Compose
 
 1. Ensure you have Docker and Docker Compose installed on your system.
-2. Use the docker-compose.example.yml file in the root of your project directory. It is important to run immich-slideshow in the same network as the immich-server, otherwise you will receive an issue with the nginx configuration.
+2. Use the docker-compose.example.yml file in the root of your project directory. It is important to run immich-slideshow
+   in the same network as the immich-server, otherwise you will receive an issue with the nginx configuration.
 3. Run your application using Docker Compose:
 
    ```bash
    docker compose up -d
    ```
 
-This will start your application and make it accessible at <http://localhost:8780>. The configuration file config.json is mounted as a volume to allow for dynamic configuration.
+This will start your application and make it accessible at <http://localhost:8780>. The configuration file config.json
+is mounted as a volume to allow for dynamic configuration.
 
 ## Immich Reverse Proxy Configuration
 
-The Nginx configuration for the immich server can be found in the official documentation at <https://immich.app/docs/administration/reverse-proxy/>. Please note that the port is not correct and has been corrected in the [default.conf](nginx/default.conf). Corresponding CORS headers have also been added. These should be adjusted if necessary.
+The Nginx configuration for the immich server can be found in the official documentation at
+<https://immich.app/docs/administration/reverse-proxy/>.
+Please note that the port is not correct and has been corrected in the [default.conf](nginx/default.conf).
+Corresponding CORS headers have also been added. These should be adjusted if necessary.
 
-**_NOTE:_** When you build this and you want to create a docker image, ffs leave the IMMICH_API_BASE_URL config variable empty. I don't know why, it seems like magic, but I lost a day to figure this out. For more informations you can visit <https://github.com/dmaze/docker-frontend-hostnames>.
+**_NOTE:_** When you build this and you want to create a docker image, ffs leave the IMMICH_API_BASE_URL config variable
+empty. I don't know why, it seems like magic, but I lost a day to figure this out. For more informations you can visit <https://github.com/dmaze/docker-frontend-hostnames>.
 
-**_NOTE 2:_** Please bear in mind that you need a reverse proxy to access the Immich API via the React app. In my case, I use the already started container as such. If you don't have the app running in your docker setup before you try to program something locally, no images will be displayed.
+**_NOTE 2:_** Please bear in mind that you need a reverse proxy to access the Immich API via the React app.
+In my case, I use the already started container as such. If you don't have the app running in your docker setup
+before you try to program something locally, no images will be displayed.
 
 ## API Keys
 
 This app uses various APIs, including:
 
-- [OpenWeatherMap](https://openweathermap.org/): for weather data and forecasts. An API key is required and should be configured in the .env file.
+- [OpenWeatherMap](https://openweathermap.org/): for weather data and forecasts. An API key is required and should be
+  configured in the .env file.
 - [Immich](https://immich.app/): for the Pictures which are used for the Slideshow.
 
 ## Additional informations
