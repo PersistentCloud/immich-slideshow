@@ -30,9 +30,9 @@ const getGradientForSide = async (base64: string, side: 'left' | 'right'): Promi
   const hexColor = rgbToHex(color.value[0], color.value[1], color.value[2]);
   const darkerHexColor = rgbToHex(darkerColor.r, darkerColor.g, darkerColor.b);
 
-  return left 
-    ? `${darkerHexColor} 0%, ${hexColor} 100%`
-    : `${hexColor} 0%, ${darkerHexColor} 100%`;
+  return left
+    ? `${hexColor} 0%, ${darkerHexColor} 100%`
+    : `${darkerHexColor} 0%, ${hexColor} 100%`;
 };
 
 
