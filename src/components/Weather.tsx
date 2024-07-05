@@ -66,7 +66,7 @@ const Weather: React.FC<WeatherProps> = ({ apiKey, fallbackCoordinates }) => {
       <div className="location">{weather.city}</div>
       <img
         className="weather-icon"
-        src={`http://openweathermap.org/img/wn/${weather.icon}.png`}
+        src={`https://openweathermap.org/img/wn/${weather.icon}.png`}
         alt="Weather Icon"
       />
       <span className="temperature">{weather.temp}°C</span>
