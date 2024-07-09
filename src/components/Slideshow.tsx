@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ImmichService from '../services/immichService';
 import { combineArrays, getGradientForBothSides, shuffleArray } from '../global/helper';
 import { Asset } from '../global/interfaces';
@@ -23,16 +23,16 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
 
     const immichService = new ImmichService(baseUrl, apiKey, excludedFileTypes);
 
-    const fetchAssets = async () => {
+    const fetchAssets = useCallback(async () => {
         let allAssets: Asset[] = [];
         for (const albumId of albumIds) {
             const albumAssets = await immichService.getAlbumAssets(albumId);
             allAssets = combineArrays(allAssets, albumAssets);
         }
         setAssets(shuffleArray(allAssets));
-    };
+    }, [albumIds, immichService]);
 
-    const updateCurrentImageData = async (asset: Asset) => {
+    const updateCurrentImageData = useCallback(async (asset: Asset) => {
         try {
             const base64 = await immichService.getImageBase64(asset.id);
             const gradientColors = await getGradientForBothSides(base64);
@@ -49,7 +49,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
         catch (e) {
             console.error(e);
         }
-    };
+    }, [immichService]);
 
     useEffect(() => {
         console.log('Updating all assets, next Interval', albumUpdateInterval / 1000 / 60, 'min');
