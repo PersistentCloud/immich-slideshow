@@ -8,7 +8,7 @@ dotenv.config() // Load environment variables from .env file
 const app = express();
 const port = 3000;
 
-const IMMICH_API_BASE_URL = process.env.IMMICH_API_BASE_URL;
+const IMMICH_API_BASE_URL = process.env.IMMICH_API_BASE_URL ? process.env.IMMICH_API_BASE_URL : '';
 const IMMICH_API_KEY = process.env.IMMICH_API_KEY;
 
 
@@ -50,7 +50,7 @@ app.use('/albums/:albumId', async (req: Request, res: Response) => {
         return res.json(response.data);
     }).catch(error => {
         console.error(`Error proxying request to ${req.originalUrl}:`, error);
-        res.status(500).send('Error proxying request');
+        res.status(500).json(error);
     });
 });
 
@@ -70,7 +70,7 @@ app.use('/image/:assetId', async (req: Request, res: Response) => {
         response.data.pipe(res);
     }).catch(error => {
         console.error(`Error proxying request to ${req.originalUrl}:`, error);
-        res.status(500).send('Error proxying request');
+        res.status(500).json(error);
     });
 });
 
@@ -90,7 +90,7 @@ app.use('/video/:assetId', async (req: Request, res: Response) => {
         response.data.pipe(res);
     }).catch(error => {
         console.error(`Error proxying request to ${req.originalUrl}:`, error);
-        res.status(500).send('Error proxying request');
+        res.status(500).json(error);
     });
 });
 

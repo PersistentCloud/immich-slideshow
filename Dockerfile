@@ -33,11 +33,16 @@ FROM nginx:alpine
 COPY --from=proxy-build /proxy/dist /usr/src/app
 
 # Install Node.js for running the proxy server
-RUN apk add --no-cache nodejs
+RUN apk add --no-cache nodejs npm
+
+# Install dependencies in the final image
+WORKDIR /usr/src/app
+COPY /proxy-backend/package*.json ./
+RUN npm install
 
 # Copy NGINX configuration
 COPY /nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY /nginx/shared.conf /etc/nginx/conf.d/shared.conf
+COPY /nginx/shared.conf /etc/nginx/shared.conf
 
 # Remove default NGINX website
 RUN rm -rf /usr/share/nginx/html/*
@@ -50,4 +55,4 @@ EXPOSE 80
 EXPOSE 3000
 
 # Start both NGINX and the proxy server
-CMD ["sh", "-c", "node /usr/src/app/server.js & nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "node /usr/src/app/app.js & nginx -g 'daemon off;'"]

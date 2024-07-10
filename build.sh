@@ -10,7 +10,7 @@ fi;
 echo "Used registry: ${REGISTRY}";
 
 echo "Extracting version from package.json";
-VERSION=$( echo "$(<package.json )" | jq '."version"' | tr -d '"');
+VERSION=$( echo "$(<slideshow-frontend/package.json )" | jq '."version"' | tr -d '"');
 echo "Extracted version: ${VERSION}";
 
 echo "Docker building...";

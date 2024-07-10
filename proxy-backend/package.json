@@ -5,6 +5,7 @@
   "scripts": {
     "start": "tsc && node dist/app.js",
     "dev": "nodemon --watch src --exec 'ts-node' src/app.ts",
+    "build": "tsc",
     "lint": "eslint . --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,7 +27,7 @@
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.17.1"
+    "express": "^4.19.2"
   },
   "overrides": {
     "eslint": "^9.6.0"
