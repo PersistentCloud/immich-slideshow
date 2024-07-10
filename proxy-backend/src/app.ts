@@ -1,6 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import { Request, Response } from 'express';
+import { validate as uuidValidate } from 'uuid';
 import dotenv from "dotenv"
 
 dotenv.config() // Load environment variables from .env file 
@@ -18,7 +19,7 @@ app.all('/*', function(req, res, next) {
 });
 
 
-app.get('/config', (req, res) => {
+app.get('/config', (req: Request, res: Response) => {
     const config = {
         OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
         IMMICH_ALBUM_IDS: process.env.IMMICH_ALBUM_IDS.split(', '),
@@ -36,15 +37,17 @@ app.get('/config', (req, res) => {
 
 
 app.use('/albums/:albumId', async (req: Request, res: Response) => {
-    const url = `${IMMICH_API_BASE_URL}/api/albums/${req.params.albumId}`;
+    const albumId = req.params.albumId
+    if (!albumId || !uuidValidate(albumId)) {
+        return res.status(400).send("Invalid or missing albumId");
+    }
+    const url = `${IMMICH_API_BASE_URL}/api/albums/${albumId}`;
     await axios({
-        method: req.method,
+        method: "GET",
         url,
         headers: {
-            'x-api-key': IMMICH_API_KEY,
-            ...req.headers,
-        },
-        data: req.body,
+            'x-api-key': IMMICH_API_KEY
+        }
     }).then(response => {
         res.header(response.headers);
         return res.json(response.data);
@@ -54,16 +57,19 @@ app.use('/albums/:albumId', async (req: Request, res: Response) => {
     });
 });
 
-app.use('/image/:assetId', async (req: Request, res: Response) => {
-    const url = `${IMMICH_API_BASE_URL}/api/assets/${req.params.assetId}/original`;
+
+app.use('/image/:imageId', async (req: Request, res: Response) => {
+    const imageId = req.params.imageId
+    if (!imageId || !uuidValidate(imageId)) {
+        return res.status(400).send("Invalid or missing imageId");
+    }
+    const url = `${IMMICH_API_BASE_URL}/api/assets/${imageId}/original`;
     await axios({
-        method: req.method,
+        method: "GET",
         url,
         headers: {
-            'x-api-key': IMMICH_API_KEY,
-            ...req.headers,
+            'x-api-key': IMMICH_API_KEY
         },
-        data: req.body,
         responseType: 'stream',
     }).then(response => {
         res.header(response.headers);
@@ -74,16 +80,19 @@ app.use('/image/:assetId', async (req: Request, res: Response) => {
     });
 });
 
-app.use('/video/:assetId', async (req: Request, res: Response) => {
-    const url = `${IMMICH_API_BASE_URL}/api/assets/${req.params.assetId}/video/playback`;
+
+app.use('/video/:videoId', async (req: Request, res: Response) => {
+    const videoId = req.params.videoId
+    if (!videoId || !uuidValidate(videoId)) {
+        return res.status(400).send("Invalid or missing videoId");
+    }
+    const url = `${IMMICH_API_BASE_URL}/api/assets/${videoId}/video/playback`;
     await axios({
-        method: req.method,
+        method: 'GET',
         url,
         headers: {
-            'x-api-key': IMMICH_API_KEY,
-            ...req.headers,
+            'x-api-key': IMMICH_API_KEY
         },
-        data: req.body,
         responseType: 'stream',
     }).then(response => {
         res.header(response.headers);
@@ -93,6 +102,7 @@ app.use('/video/:assetId', async (req: Request, res: Response) => {
         res.status(500).json(error);
     });
 });
+
 
 app.listen(port, () => {
     console.log(`Proxy server listening on port ${port}`);
