@@ -40,7 +40,7 @@ data and displays it along with sunrise and sunset times.
 - This project is not affiliated with immich!
 - Immich is under **very active** development. Breaking changes can always happen.
 - I'm not a professional developer. Code Gore and the ignoring of best practices cannot be ruled out.
-- **Breaking changes happend between v1 and v2. Please don't use the config.json but environment variables from now on**
+- **Breaking changes happend between v1 and v2. Please don't use the config.json but environment variables from now on.**
 
 ## Features
 
