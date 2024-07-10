@@ -1,15 +1,23 @@
 // src/config.ts
+import axios from 'axios';
+import { Config } from './global/interfaces';
+
+const PROXY_URL = process.env.REACT_APP_PROXY_URL ? process.env.REACT_APP_PROXY_URL : "";
+
+
 const loadConfig = async () => {
-  const response = await fetch('/config.json');
-  if (!response.ok) {
-    throw new Error('Failed to load configuration');
-  }
-  return await response.json();
+  return await axios.get(`${PROXY_URL}/config`).then((response) => {
+    const config: Config = response.data;
+    config.IMMICH_API_BASE_URL = PROXY_URL;
+    return config;
+  }).catch((error) => {
+    throw new Error('Failed to load configuration: ', error);
+  });
 };
 
 let config: any;
 
-const initializeConfig = async () => {
+const initializeConfig = async (): Promise<Config> => {
   if (!config) {
     config = await loadConfig();
   }

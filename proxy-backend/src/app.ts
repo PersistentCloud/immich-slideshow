@@ -18,6 +18,23 @@ app.all('/*', function(req, res, next) {
 });
 
 
+app.get('/config', (req, res) => {
+    const config = {
+        OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
+        IMMICH_ALBUM_IDS: process.env.IMMICH_ALBUM_IDS.split(', '),
+        EXCLUDED_FILE_TYPES: process.env.EXCLUDED_FILE_TYPES.split(', '),
+        SLIDESHOW_INTERVAL_SECONDS: parseInt(process.env.SLIDESHOW_INTERVAL_SECONDS, 10),
+        ALBUM_UPDATE_INTERVAL_MINUTES: parseInt(process.env.ALBUM_UPDATE_INTERVAL_MINUTES, 10),
+        FALLBACK_COORDINATES: {
+            latitude: parseFloat(process.env.FALLBACK_LATITUDE),
+            longitude: parseFloat(process.env.FALLBACK_LONGITUDE)
+        }
+    };
+
+    res.json(config);
+});
+
+
 app.use('/albums/:albumId', async (req: Request, res: Response) => {
     const url = `${IMMICH_API_BASE_URL}/api/albums/${req.params.albumId}`;
     await axios({

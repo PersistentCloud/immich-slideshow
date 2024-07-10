@@ -4,19 +4,11 @@ import { Asset } from '../global/interfaces';
 
 class ImmichService {
   private baseUrl: string;
-  private apiKey: string;
   private excludedFileTypes: string[];
 
-  constructor(baseUrl: string, apiKey: string, excludedFileTypes: string[]) {
+  constructor(baseUrl: string, excludedFileTypes: string[]) {
     this.baseUrl = baseUrl;
-    this.apiKey = apiKey;
     this.excludedFileTypes = excludedFileTypes;
-  }
-
-  private getHeaders() {
-    return {
-      'x-api-key': this.apiKey,
-    };
   }
 
   public async getAlbumAssets(albumId: string): Promise<Asset[]> {
@@ -44,7 +36,7 @@ class ImmichService {
         exifImageWidth: asset.exifInfo.exifImageWidth,
         exifImageHeight: asset.exifInfo.exifImageHeight,
         orientation: +asset.exifInfo.orientation,
-        type : asset.type
+        type: asset.type
       }));
     } catch (error) {
       console.error(`Error fetching assets for album ${albumId}`, error);
@@ -71,7 +63,7 @@ class ImmichService {
   }
 
   public async getVideoUrl(assetId: string): Promise<string | null> {
-    return `${this.baseUrl}/video/${assetId}`
+    return `${this.baseUrl}/video/${assetId}`;
   }
 }
 

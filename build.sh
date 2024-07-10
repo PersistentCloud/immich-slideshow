@@ -1,4 +1,6 @@
 REGISTRY=$1
+REACT_APP_PROXY_URL=""
+IMMICH_API_BASE_URL=""
 
 if [[ $1 == "" ]]; then
   REGISTRY=""; else

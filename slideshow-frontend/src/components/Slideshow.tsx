@@ -5,14 +5,13 @@ import { Asset } from '../global/interfaces';
 
 interface SlideshowProps {
     albumIds: string[];
-    apiKey: string;
     baseUrl: string;
     slideshowInterval: number;
     albumUpdateInterval: number;
     excludedFileTypes: string[];
 }
 
-const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slideshowInterval, albumUpdateInterval, excludedFileTypes }) => {
+const Slideshow: React.FC<SlideshowProps> = ({ albumIds, baseUrl, slideshowInterval, albumUpdateInterval, excludedFileTypes }) => {
     const [assets, setAssets] = useState<Asset[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentBase64, setCurrentBase64] = useState<string | null>(null);
@@ -22,7 +21,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
     const [currentAssetLocation, setCurrentAssetLocation] = useState<string | null>(null);
     const [currentGradientColors, setGradientColors] = useState<{ left: string; right: string; } | null | undefined>(null);
 
-    const immichService = new ImmichService(baseUrl, apiKey, excludedFileTypes);
+    const immichService = new ImmichService(baseUrl, excludedFileTypes);
 
     const fetchAssets = useCallback(async () => {
         let allAssets: Asset[] = [];
@@ -48,7 +47,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
                 setCurrentBase64(null);
                 setGradientColors(gradientColors);
             }
-            switch(asset.orientation) {
+            switch (asset.orientation) {
                 case 5:
                 case 6:
                 case 7:
@@ -75,7 +74,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
         fetchAssets();
         const updateInterval = setInterval(fetchAssets, albumUpdateInterval);
         return () => clearInterval(updateInterval);
-    }, [albumIds, apiKey, baseUrl, albumUpdateInterval]);
+    }, [albumIds, baseUrl, albumUpdateInterval]);
 
     useEffect(() => {
         if (assets.length > 0) {
