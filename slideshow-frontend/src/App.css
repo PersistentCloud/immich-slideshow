@@ -126,17 +126,15 @@ html {
 /* Styles for the Overlay */
 .fade-in .slideshow .overlay {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 20px;
+  right: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
   color: white;
   z-index: 1;
   /* Foreground layer above the Slideshow */
   border-radius: 10px;
-  text-align: center;
-  margin-bottom: 5px; /* Space below the time */
+  text-align: right;
+  margin-bottom: 5px; /* Space below */
   font-size: 0.9em;
 }
 
