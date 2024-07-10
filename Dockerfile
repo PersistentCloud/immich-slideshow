@@ -37,6 +37,7 @@ RUN apk add --no-cache nodejs
 
 # Copy NGINX configuration
 COPY /nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY /nginx/shared.conf /etc/nginx/conf.d/shared.conf
 
 # Remove default NGINX website
 RUN rm -rf /usr/share/nginx/html/*

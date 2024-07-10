@@ -5,5 +5,6 @@ export interface Asset {
   dateTimeOriginal: Date;
   exifImageWidth: number;
   exifImageHeight: number;
+  orientation: number;
   type: "IMAGE" | "VIDEO";
 }

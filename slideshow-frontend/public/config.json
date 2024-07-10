@@ -1,7 +1,7 @@
 {
-    "IMMICH_API_BASE_URL": "http://192.168.1.75:8780",
-    "OPENWEATHERMAP_API_KEY": "aba6bba42454ed9571c2af452572be7f",
-    "IMMICH_API_KEY": "GkWvdB7qjftMPt7jKE7feTxCualSTuN8R4tkfJMQUM",
+    "IMMICH_API_BASE_URL": "http://localhost:3000",
+    "OPENWEATHERMAP_API_KEY": "36789906d8e399d67ffe082bcf359e1c",
+    "IMMICH_API_KEY": "95HaGb8GgRdtQjr9JiuNEWmPlgZyHiyN1GxLlKXscQ",
     "IMMICH_ALBUM_IDS": [
         "b40facae-094e-41ad-9a2b-e8c18234e5da"
     ],

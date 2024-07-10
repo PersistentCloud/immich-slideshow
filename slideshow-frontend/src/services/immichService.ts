@@ -21,8 +21,7 @@ class ImmichService {
 
   public async getAlbumAssets(albumId: string): Promise<Asset[]> {
     try {
-      const response = await axios.get(`${this.baseUrl}/api/albums/${albumId}`, {
-        headers: this.getHeaders(),
+      const response = await axios.get(`${this.baseUrl}/albums/${albumId}`, {
       });
 
       console.log('Assets before filtering: ', response.data.assets);
@@ -44,6 +43,7 @@ class ImmichService {
         dateTimeOriginal: new Date(asset.exifInfo.dateTimeOriginal),
         exifImageWidth: asset.exifInfo.exifImageWidth,
         exifImageHeight: asset.exifInfo.exifImageHeight,
+        orientation: +asset.exifInfo.orientation,
         type : asset.type
       }));
     } catch (error) {
@@ -54,8 +54,7 @@ class ImmichService {
 
   public async getImageBase64(assetId: string): Promise<string | null> {
     try {
-      const response = await axios.get(`${this.baseUrl}/api/assets/${assetId}/original`, {
-        headers: this.getHeaders(),
+      const response = await axios.get(`${this.baseUrl}/image/${assetId}`, {
         responseType: 'blob',
       });
 
@@ -69,6 +68,10 @@ class ImmichService {
       console.error(`Error fetching image data for asset ${assetId}`, error);
       return null;
     }
+  }
+
+  public async getVideoUrl(assetId: string): Promise<string | null> {
+    return `${this.baseUrl}/video/${assetId}`
   }
 }
 
