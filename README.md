@@ -40,6 +40,7 @@ data and displays it along with sunrise and sunset times.
 - This project is not affiliated with immich!
 - Immich is under **very active** development. Breaking changes can always happen.
 - I'm not a professional developer. Code Gore and the ignoring of best practices cannot be ruled out.
+- **Breaking changes happend between v1 and v2. Please don't use the config.json but environment variables from now on.**
 
 ## Features
 
@@ -50,6 +51,7 @@ data and displays it along with sunrise and sunset times.
 - Display the sunrise and sunset times
 - Automatic temperature updates based on user location
 - Nginx preconfigured to be ready when deployed in Docker
+- v2.0.0 provides video support
 
 ## Installation
 
@@ -67,11 +69,12 @@ data and displays it along with sunrise and sunset times.
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/weather-slideshow-app.git
-   cd weather-slideshow-app
+   git clone https://github.com/PersistentCloud/immich-slideshow.git
+   cd immich-slideshow
    ```
 
 2. **Install dependencies**
+   Go into the folder for slideshow-frontend and proxy-backend and execute following command there.
 
    ```bash
    npm install
@@ -79,7 +82,7 @@ data and displays it along with sunrise and sunset times.
 
 3. **Configuration**
 
-   - Adjust the config.json in the public folder.
+   - Create and adjust the .env variable according to .env.example
    - Set your API keys and other configurations.
 
 ## Docker Build
@@ -97,13 +100,19 @@ they will be pushed and published.
 
 ### Local
 
-1. Start the application with the following command:
+1. Start the proxy-backend with the following command:
+
+   ```bash
+   npm run dev
+   ```
+
+2. Start the slideshow-frontend with the following command:
 
    ```bash
    npm start
    ```
 
-2. Open your web browser and navigate to <http://localhost:3000> (or the specified URL).
+3. Open your web browser and navigate to <http://localhost:3001> (or the specified URL).
 
 ### Docker Compose
 
@@ -116,8 +125,8 @@ they will be pushed and published.
    docker compose up -d
    ```
 
-This will start your application and make it accessible at <http://localhost:8780>. The configuration file config.json
-is mounted as a volume to allow for dynamic configuration.
+This will start your application and make it accessible at <http://localhost:8780>. Use the environment variables 
+to configure the application.
 
 ## Immich Reverse Proxy Configuration
 
@@ -126,8 +135,9 @@ The Nginx configuration for the immich server can be found in the official docum
 Please note that the port is not correct and has been corrected in the [default.conf](nginx/default.conf).
 Corresponding CORS headers have also been added. These should be adjusted if necessary.
 
-**_NOTE:_** When you build this and you want to create a docker image, ffs leave the IMMICH_API_BASE_URL config variable
-empty. I don't know why, it seems like magic, but I lost a day to figure this out. For more informations you can visit <https://github.com/dmaze/docker-frontend-hostnames>.
+**_NOTE:_** When you build this and you want to create a docker image, ffs leave the
+IMMICH_API_BASE_URL & REACT_APP_PROXY_URL config variable empty. I don't know why, it seems like magic, but I lost
+a day to figure this out. For more informations you can visit <https://github.com/dmaze/docker-frontend-hostnames>.
 
 **_NOTE 2:_** Please bear in mind that you need a reverse proxy to access the Immich API via the React app.
 In my case, I use the already started container as such. If you don't have the app running in your docker setup

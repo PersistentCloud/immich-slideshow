@@ -5,23 +5,23 @@ import { Asset } from '../global/interfaces';
 
 interface SlideshowProps {
     albumIds: string[];
-    apiKey: string;
     baseUrl: string;
     slideshowInterval: number;
     albumUpdateInterval: number;
     excludedFileTypes: string[];
 }
 
-const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slideshowInterval, albumUpdateInterval, excludedFileTypes }) => {
+const Slideshow: React.FC<SlideshowProps> = ({ albumIds, baseUrl, slideshowInterval, albumUpdateInterval, excludedFileTypes }) => {
     const [assets, setAssets] = useState<Asset[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentBase64, setCurrentBase64] = useState<string | null>(null);
+    const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null);
     const [isPortrait, setIsPortrait] = useState(false);
     const [currentAssetCreationDate, setCurrentAssetCreationDate] = useState<string | null>(null);
     const [currentAssetLocation, setCurrentAssetLocation] = useState<string | null>(null);
-    const [currentGradientColors, setGradientColors] = useState<{ left: string; right: string; } | null>(null);
+    const [currentGradientColors, setGradientColors] = useState<{ left: string; right: string; } | null | undefined>(null);
 
-    const immichService = new ImmichService(baseUrl, apiKey, excludedFileTypes);
+    const immichService = new ImmichService(baseUrl, excludedFileTypes);
 
     const fetchAssets = useCallback(async () => {
         let allAssets: Asset[] = [];
@@ -34,19 +34,37 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
 
     const updateCurrentImageData = useCallback(async (asset: Asset) => {
         try {
-            const base64 = await immichService.getImageBase64(asset.id);
-            const gradientColors = await getGradientForBothSides(base64);
-            setCurrentBase64(base64);
-            setIsPortrait(asset.exifImageHeight > asset.exifImageWidth);
+            if (asset.type === 'IMAGE') {
+                const base64 = await immichService.getImageBase64(asset.id);
+                const gradientColors = await getGradientForBothSides(base64, asset.exifImageWidth);
+                setCurrentBase64(base64);
+                setCurrentVideoUrl(null);
+                setGradientColors(gradientColors);
+            } else if (asset.type === 'VIDEO') {
+                const videoUrl = await immichService.getVideoUrl(asset.id);
+                const gradientColors = await getGradientForBothSides(videoUrl, asset.exifImageWidth, 'VIDEO');
+                setCurrentVideoUrl(videoUrl);
+                setCurrentBase64(null);
+                setGradientColors(gradientColors);
+            }
+            switch (asset.orientation) {
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    setIsPortrait(true);
+                    break;
+                default:
+                    setIsPortrait(asset.exifImageHeight > asset.exifImageWidth);
+                    break;
+            };
             setCurrentAssetLocation(asset.city);
             setCurrentAssetCreationDate(asset.dateTimeOriginal.toLocaleDateString("de-DE", {
                 year: "numeric",
                 month: "2-digit",
                 day: "2-digit",
             }));
-            setGradientColors(gradientColors);
-        }
-        catch (e) {
+        } catch (e) {
             console.error(e);
         }
     }, [immichService]);
@@ -56,7 +74,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
         fetchAssets();
         const updateInterval = setInterval(fetchAssets, albumUpdateInterval);
         return () => clearInterval(updateInterval);
-    }, [albumIds, apiKey, baseUrl, albumUpdateInterval]);
+    }, [albumIds, baseUrl, albumUpdateInterval]);
 
     useEffect(() => {
         if (assets.length > 0) {
@@ -80,11 +98,16 @@ const Slideshow: React.FC<SlideshowProps> = ({ albumIds, apiKey, baseUrl, slides
     } as React.CSSProperties : {};
 
     return (
-        <div className="fade-in" key={currentBase64}>
+        <div className="fade-in" key={currentBase64 || currentVideoUrl}>
             <div
                 className={`slideshow${isPortrait ? ' portrait' : ''}`}
                 style={customStyles}>
                 {currentBase64 && <img src={currentBase64} alt="Slideshow" />}
+                {currentVideoUrl && (
+                    <video controls autoPlay loop muted >
+                        <source src={currentVideoUrl} type="video/mp4" />
+                    </video>
+                )}
                 <div className="overlay">
                     <div>{currentAssetLocation}</div>
                     <div>{currentAssetCreationDate}</div>

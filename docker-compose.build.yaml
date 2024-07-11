@@ -10,6 +10,4 @@ services:
       # no_cache: true
     ports:
       - "8780:80"
-    volumes:
-      - ./public/config.json:/usr/share/nginx/html/config.json:ro
     

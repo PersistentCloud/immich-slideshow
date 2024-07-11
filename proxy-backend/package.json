@@ -1,0 +1,36 @@
+{
+  "name": "proxy-backend",
+  "version": "1.0.0",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "dev": "nodemon --watch src --exec 'ts-node' src/app.ts",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.1",
+    "eslint": "^9.6.0",
+    "globals": "^15.8.0",
+    "nodemon": "^3.1.4",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "uuid": "^10.0.0"
+  },
+  "overrides": {
+    "eslint": "^9.6.0"
+  }
+}

@@ -61,6 +61,17 @@ html {
   /* Centers the image */
 }
 
+.fade-in .slideshow video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Centers the image */
+}
+
 .fade-in .slideshow.portrait {
   position: relative;
   width: 100%;
@@ -99,20 +110,31 @@ html {
   z-index: 1;
 }
 
+.fade-in .slideshow.portrait video {
+  width: auto;
+  height: calc(100% + 60px);
+  /* Increase height by 60px to crop top and bottom */
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.1);
+  /* Zoom effect */
+  z-index: 1;
+}
+
 /* Styles for the Overlay */
 .fade-in .slideshow .overlay {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 20px;
+  right: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
   color: white;
   z-index: 1;
   /* Foreground layer above the Slideshow */
   border-radius: 10px;
-  text-align: center;
-  margin-bottom: 5px; /* Space below the time */
+  text-align: right;
+  margin-bottom: 5px; /* Space below */
   font-size: 0.9em;
 }
 
@@ -188,8 +210,11 @@ html {
   display: flex;
   align-items: center;
   margin: 5px 0;
-  margin-right: 10px;
   font-size: 0.8em
+}
+
+.weather .sun-times .sunrise {
+  margin-right: 10px;
 }
 
 .weather .sun-times .sunrise img,
