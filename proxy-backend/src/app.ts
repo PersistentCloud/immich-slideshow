@@ -52,7 +52,7 @@ app.use('/albums/:albumId', async (req: Request, res: Response) => {
         res.header(response.headers);
         return res.json(response.data);
     }).catch(error => {
-        console.error(`Error proxying request to ${url}: `, error);
+        console.error(`Error proxying request to %s: %s`, url, error);
         res.status(500).json(error);
     });
 });
@@ -75,7 +75,7 @@ app.use('/image/:imageId', async (req: Request, res: Response) => {
         res.header(response.headers);
         response.data.pipe(res);
     }).catch(error => {
-        console.error(`Error proxying request to ${url}: `, error);
+        console.error(`Error proxying request to %s: %s`, url, error);
         res.status(500).json(error);
     });
 });
@@ -98,7 +98,7 @@ app.use('/video/:videoId', async (req: Request, res: Response) => {
         res.header(response.headers);
         response.data.pipe(res);
     }).catch(error => {
-        console.error(`Error proxying request to ${url}: `, error);
+        console.error(`Error proxying request to %s: %s`, url, error);
         res.status(500).json(error);
     });
 });
