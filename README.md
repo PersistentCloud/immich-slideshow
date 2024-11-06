@@ -1,3 +1,14 @@
+# ⚠️ Project Archived
+
+**This project is no longer actively maintained.**  
+For a more up-to-date and actively supported alternative, I recommend checking out [Immich Kiosk](https://github.com/damongolding/immich-kiosk), which offers similar/better functionality and ongoing improvements.
+
+---
+
+Thank you for your support and interest in this project.
+
+---
+
 # Immich Slideshow App
 
 <table class="images" width="100%"  style="border:0px solid white; width:100%;">
